@@ -1,0 +1,64 @@
+#Carpetas de compilado
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Xx]64/
+[Xx]86/
+[Ll]og/
+[Ll]ogs/
+
+#Otros archivos de visual studio
+.vs/
+*.userosscache
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
+
+#mas archivos de compilacion
+*.tmp
+*.temp
+*.cache
+*.dll
+*.pdb
+*.ilk
+*.meta
+*.obj
+*.exe
+
+# nuGet (no se que sea pero se puede volver a generar en visual)
+*.nupkg
+# paquetes y archivos que se restauran
+packages/
+*.nuget.props
+*.nuget.targets
+
+# de asp.net y .net
+project.lock.json
+project.fragment.lock.json
+artifacts/
+publish/
+*.pubxml
+*.publishproj
+
+# configuraciones locales
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+*.env
+
+# Archivos de VS Code 
+.idea/
+.vscode/
+
+# del SO
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# de testeo
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
