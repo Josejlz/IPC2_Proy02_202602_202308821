@@ -6,7 +6,6 @@
 
 <div class="text-center">
     <h1 class="display-4">Libreria USAC</h1>
-    <p> <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
 <div class="hero">
@@ -14,30 +13,21 @@
     <p>Selecciona una opción del menú para comenzar a administrar tu catálogo.</p>
 </div>
 
-<!-- TARJETAS DE REDIRECCIÓN -->
 <div class="menu-grid">
-    <a href="cargar.html" class="menu-card">
-        <div class="menu-icon">📂</div>
+    <a asp-page="/Cargar" class="menu-card">
         <h3>Cargar Datos XML</h3>
-        <p>Importa tu base de datos de libros desde un archivo XML externo.</p>
     </a>
 
-    <a href="catalogo.html" class="menu-card">
-        <div class="menu-icon">📖</div>
+    <a asp-page="/Catalogo" class="menu-card">
         <h3>Ver Catálogo</h3>
-        <p>Explora y visualiza todos los libros disponibles en el sistema.</p>
     </a>
 
-    <a href="panel.html" class="menu-card">
-        <div class="menu-icon">⚙️</div>
+    <a asp-page="Panel" class="menu-card">
         <h3>Panel de Libros</h3>
-        <p>Registra nuevos libros, elimina existentes o consulta datos por ISBN.</p>
     </a>
 
-    <a href="ayuda.html" class="menu-card">
-        <div class="menu-icon">❓</div>
+    <a asp-page="/Ayuda" class="menu-card">
         <h3>Ayuda</h3>
-        <p>Información del proyecto, repositorio y datos de contacto del autor.</p>
     </a>
 </div>
 

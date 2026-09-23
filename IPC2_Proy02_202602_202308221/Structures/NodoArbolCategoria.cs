@@ -11,9 +11,9 @@ namespace IPC2_Proy02_202602_202308221.Structures
 
         public NodoArbolLibro? RaizLibros {get; set;}
 
-        public NodoArbolCategoria()
+        public NodoArbolCategoria(Categoria dato)
         {
-            Dato = null;
+            Dato = dato;
             Padre = null;
             PrimerHijo = null;
             SiguienteHermano =  null;
