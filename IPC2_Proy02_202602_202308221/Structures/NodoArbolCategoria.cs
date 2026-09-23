@@ -8,17 +8,17 @@ namespace IPC2_Proy02_202602_202308221.Structures
         public NodoArbolCategoria? Padre {get; set;}
         public NodoArbolCategoria? PrimerHijo {get; set;}
         public NodoArbolCategoria? SiguienteHermano {get; set;}
-
-        public NodoArbolLibro? RaizLibros {get; set;}
-
+ 
+        public ArbolLibros? LibrosPropios { get; private set; }
+ 
         public NodoArbolCategoria(Categoria dato)
         {
             Dato = dato;
             Padre = null;
             PrimerHijo = null;
             SiguienteHermano =  null;
-            RaizLibros = null;
+            LibrosPropios = new ArbolLibros();
         }
-
+ 
     }
 }
