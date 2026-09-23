@@ -4,30 +4,41 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Libreria USAC</h1>
-</div>
+<nav class="menu-grid" aria-label="Menú principal">
+        <div class="menu-item">
+            <button type="button" class="menu-btn" onclick="location.href='@Url.Page("/Cargar")'">
+                <span class="menu-text">
+                    <strong>Cargar Datos XML</strong>
+                    <small>Importa registros desde un archivo XML</small>
+                </span>
+            </button>
+        </div>
 
-<div class="hero">
-    <h1>Bienvenido al Sistema de Gestión de Libros</h1>
-    <p>Selecciona una opción del menú para comenzar a administrar tu catálogo.</p>
-</div>
+        <div class="menu-item">
+            <button type="button" class="menu-btn" onclick="location.href='@Url.Page("/Catalogo")'">
+                <span class="menu-text">
+                    <strong>Ver Catálogo</strong>
+                    <small>Consulta de libros cargados</small>
+                </span>
+            </button>
+        </div>
 
-<div class="menu-grid">
-    <a asp-page="/Cargar" class="menu-card">
-        <h3>Cargar Datos XML</h3>
-    </a>
+        <div class="menu-item">
+            <button type="button" class="menu-btn" onclick="location.href='@Url.Page("/Panel")'">
+                <span class="menu-text">
+                    <strong>Panel de Libros</strong>
+                    <small>Gestión, modificación y búsqueda</small>
+                </span>
+            </button>
+        </div>
 
-    <a asp-page="/Catalogo" class="menu-card">
-        <h3>Ver Catálogo</h3>
-    </a>
-
-    <a asp-page="Panel" class="menu-card">
-        <h3>Panel de Libros</h3>
-    </a>
-
-    <a asp-page="/Ayuda" class="menu-card">
-        <h3>Ayuda</h3>
-    </a>
-</div>
+        <div class="menu-item">
+            <button type="button" class="menu-btn" onclick="location.href='@Url.Page("/Ayuda")'">
+                <span class="menu-text">
+                    <strong>Ayuda</strong>
+                    <small>Información del sistema.</small>
+                </span>
+            </button>
+        </div>
+    </nav>
 
