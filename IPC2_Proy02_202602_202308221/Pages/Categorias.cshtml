@@ -1,0 +1,120 @@
+@page
+@model IPC2_Proy02_202602_202308221.Pages.CategoriasModel
+@{
+    ViewData["Title"] = "Gestión de categorías";
+}
+
+<h1>Gestión de categorías</h1>
+
+@if (Model.Mensaje != null)
+{
+    <div class="alert @(Model.MensajeEsError ? "alert-danger" : "alert-success")">@Model.Mensaje</div>
+}
+
+<h2>Agregar categoría</h2>
+<form method="post" asp-page-handler="Agregar">
+    <input type="hidden" name="Desde" value="@Model.Desde" />
+    <div class="row g-2 align-items-end">
+        <div class="col-auto">
+            <label for="NuevaCategoriaNombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="NuevaCategoriaNombre" name="NuevaCategoriaNombre" required />
+        </div>
+        <div class="col-auto">
+            <label for="NuevaCategoriaPadre" class="form-label">Categoría padre (opcional)</label>
+            <select class="form-select" id="NuevaCategoriaPadre" name="NuevaCategoriaPadre">
+                <option value="">(Ninguna — categoría principal)</option>
+                @{
+                    var nodoOpcion = Model.EstructuraCompleta.Cabeza;
+                }
+                @while (nodoOpcion != null)
+                {
+                    <option value="@nodoOpcion.Dato?.Nombre">@(new string('-', nodoOpcion.Nivel * 2)) @nodoOpcion.Dato?.Nombre</option>
+                    nodoOpcion = nodoOpcion.Siguiente;
+                }
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Agregar</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<h2>
+    Estructura de categorías
+    @if (!string.IsNullOrWhiteSpace(Model.Desde))
+    {
+        <small>(desde "@Model.Desde") — <a asp-page="./Categorias">ver estructura completa</a></small>
+    }
+</h2>
+
+@if (Model.ErrorEstructura != null)
+{
+    <div class="alert alert-warning">@Model.ErrorEstructura</div>
+}
+
+@if (Model.Estructura == null || Model.Estructura.EstaVacia)
+{
+    <p><em>Todavía no hay categorías registradas.</em></p>
+}
+else
+{
+    <ul class="list-unstyled">
+        @{
+            var nodo = Model.Estructura.Cabeza;
+        }
+        @while (nodo != null)
+        {
+            <li style="margin-left: @(nodo.Nivel * 1.5)rem;">
+                @nodo.Dato?.Nombre
+                —
+                <a asp-page="./Categorias" asp-route-desde="@nodo.Dato?.Nombre">ver desde aquí</a>
+                |
+                <a asp-page="./Categorias" asp-route-desde="@Model.Desde" asp-route-libros="@nodo.Dato?.Nombre">ver libros</a>
+            </li>
+            nodo = nodo.Siguiente;
+        }
+    </ul>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Libros))
+{
+    <hr />
+    <h2>Libros de "@Model.Libros"</h2>
+
+    @if (Model.ErrorLibros != null)
+    {
+        <div class="alert alert-warning">@Model.ErrorLibros</div>
+    }
+    else if (Model.LibrosCategoria == null || Model.LibrosCategoria.EstaVacia)
+    {
+        <p><em>Esta categoría no tiene libros propios registrados (podría tenerlos en sus subcategorías).</em></p>
+    }
+    else
+    {
+        <table class="table table-sm">
+            <thead>
+                <tr><th>ISBN</th><th>Título</th><th>Autor</th></tr>
+            </thead>
+            <tbody>
+                @{
+                    var nodoLibro = Model.LibrosCategoria.Cabeza;
+                }
+                @while (nodoLibro != null)
+                {
+                    <tr>
+                        <td>@nodoLibro.Dato?.ISBN</td>
+                        <td>@nodoLibro.Dato?.Titulo</td>
+                        <td>@nodoLibro.Dato?.Autor</td>
+                    </tr>
+                    nodoLibro = nodoLibro.Siguiente;
+                }
+            </tbody>
+        </table>
+        <p class="text-muted">
+            Se muestran en orden ascendente de ISBN. En el siguiente paso (Graphviz) esto también
+            se mostrará como un diagrama.
+        </p>
+    }
+}

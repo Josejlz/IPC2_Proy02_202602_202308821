@@ -1,0 +1,52 @@
+@page
+@model IPC2_Proy02_202602_202308221.Pages.CargarModel
+@{
+    ViewData["Title"] = "Cargar catálogo desde XML";
+}
+
+<h1>Cargar catálogo desde XML</h1>
+
+<p>
+    Selecciona un archivo de configuración XML (formato <code>entrada.xml</code> del enunciado).
+    Puedes cargar varios archivos uno tras otro: cada uno se suma al catálogo que ya tengas cargado.
+</p>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="ArchivoXml" class="form-label">Archivo XML</label>
+        <input type="file" class="form-control" id="ArchivoXml" name="ArchivoXml" accept=".xml" />
+    </div>
+    <button type="submit" class="btn btn-primary">Cargar archivo</button>
+</form>
+
+@if (Model.MensajeError != null)
+{
+    <div class="alert alert-danger mt-3">@Model.MensajeError</div>
+}
+
+@if (Model.Resultado != null)
+{
+    <div class="alert alert-success mt-3">
+        Se agregaron <strong>@Model.Resultado.CategoriasAgregadas</strong> categoría(s)
+        y <strong>@Model.Resultado.LibrosAgregados</strong> libro(s).
+        El catálogo tiene ahora <strong>@Model.TotalLibros</strong> libro(s) en total.
+    </div>
+
+    @if (!Model.Resultado.Errores.EstaVacia)
+    {
+        <div class="alert alert-warning mt-3">
+            <strong>Advertencias / errores durante la carga:</strong>
+            <ul>
+                @{
+                    var nodo = Model.Resultado.Errores.Cabeza;
+                }
+                @while (nodo != null)
+                {
+                    <li>@nodo.Dato</li>
+                    nodo = nodo.Siguiente;
+                }
+            </ul>
+        </div>
+    }
+}
+

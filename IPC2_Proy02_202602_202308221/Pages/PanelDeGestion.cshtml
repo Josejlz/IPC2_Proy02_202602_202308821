@@ -1,0 +1,136 @@
+@page
+@model PanelDeGestionModel
+@{
+    ViewData["Title"] = "Panel de Libros";
+}
+
+<h1>Gestión de libros</h1>
+
+@if (Model.Mensaje != null)
+{
+    <div class="alert @(Model.MensajeEsError ? "alert-danger" : "alert-success")">@Model.Mensaje</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Libro con menor ISBN</h5>
+                @if (Model.LibroMenor == null)
+                {
+                    <p class="text-muted mb-0"><em>El catálogo todavía no tiene libros.</em></p>
+                }
+                else
+                {
+                    <p class="mb-0">[@Model.LibroMenor.ISBN] @Model.LibroMenor.Titulo — @Model.LibroMenor.Autor (@Model.LibroMenor.Categoria)</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Libro con mayor ISBN</h5>
+                @if (Model.LibroMayor == null)
+                {
+                    <p class="text-muted mb-0"><em>El catálogo todavía no tiene libros.</em></p>
+                }
+                else
+                {
+                    <p class="mb-0">[@Model.LibroMayor.ISBN] @Model.LibroMayor.Titulo — @Model.LibroMayor.Autor (@Model.LibroMayor.Categoria)</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h2>Registrar libro</h2>
+<form method="post" asp-page-handler="Registrar">
+    <div class="row g-2">
+        <div class="col-auto">
+            <label class="form-label">ISBN</label>
+            <input type="number" class="form-control" name="NuevoIsbn" required />
+        </div>
+        <div class="col-auto">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-control" name="NuevoTitulo" required />
+        </div>
+        <div class="col-auto">
+            <label class="form-label">Autor</label>
+            <input type="text" class="form-control" name="NuevoAutor" required />
+        </div>
+        <div class="col-auto">
+            <label class="form-label">Categoría</label>
+            <select class="form-select" name="NuevaCategoria" required>
+                <option value="">(selecciona una categoría)</option>
+                @{
+                    var nodoCategoria = Model.CategoriasDisponibles.Cabeza;
+                }
+                @while (nodoCategoria != null)
+                {
+                    <option value="@nodoCategoria.Dato?.Nombre">@(new string('-', nodoCategoria.Nivel * 2)) @nodoCategoria.Dato?.Nombre</option>
+                    nodoCategoria = nodoCategoria.Siguiente;
+                }
+            </select>
+        </div>
+        <div class="col-auto align-self-end">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+    </div>
+</form>
+
+@if (Model.CategoriasDisponibles.EstaVacia)
+{
+    <p class="text-muted mt-2">
+        Todavía no hay categorías; crea al menos una en <a asp-page="./Categorias">Gestión de categorías</a>
+        antes de registrar un libro.
+    </p>
+}
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Eliminar libro</h2>
+        <form method="post" asp-page-handler="Eliminar" class="row g-2">
+            <div class="col-auto">
+                <label class="form-label">ISBN</label>
+                <input type="number" class="form-control" name="IsbnEliminar" required />
+            </div>
+            <div class="col-auto align-self-end">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h2>Buscar libro por ISBN</h2>
+        <form method="get" class="row g-2">
+            <div class="col-auto">
+                <label class="form-label">ISBN</label>
+                <input type="number" class="form-control" name="Buscar" value="@Model.Buscar" required />
+            </div>
+            <div class="col-auto align-self-end">
+                <button type="submit" class="btn btn-secondary">Buscar</button>
+            </div>
+        </form>
+
+        @if (Model.Buscar != null)
+        {
+            @if (Model.ErrorBusqueda != null)
+            {
+                <div class="alert alert-warning mt-2">@Model.ErrorBusqueda</div>
+            }
+            else if (Model.LibroEncontrado != null)
+            {
+                <div class="alert alert-info mt-2">
+                    <strong>[@Model.LibroEncontrado.ISBN]</strong> @Model.LibroEncontrado.Titulo<br />
+                    Autor: @Model.LibroEncontrado.Autor<br />
+                    Categoría: @Model.LibroEncontrado.Categoria
+                </div>
+            }
+        }
+    </div>
+</div>

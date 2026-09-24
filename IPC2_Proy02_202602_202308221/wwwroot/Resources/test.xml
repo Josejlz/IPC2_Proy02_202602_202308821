@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+  <listaCategorias>
+    <categoria> Ciencia </categoria>
+    <categoria padre="Ciencia"> Fisica </categoria>
+    <categoria padre="Ciencia"> Matematica </categoria>
+    <categoria> Novela </categoria>
+  </listaCategorias>
+  <listaLibros>
+    <libro>
+      <ISBN>9781</ISBN>
+      <titulo>El universo en una cascara de nuez</titulo>
+      <autor>Stephen Hawking</autor>
+      <categoria>Fisica</categoria>
+    </libro>
+    <libro>
+      <ISBN>1234</ISBN>
+      <titulo>Cien anos de soledad</titulo>
+      <autor>Gabriel Garcia Marquez</autor>
+      <categoria>Novela</categoria>
+    </libro>
+  </listaLibros>
+</config>
