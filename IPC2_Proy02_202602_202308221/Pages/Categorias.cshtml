@@ -93,6 +93,16 @@ else
     }
     else
     {
+        <div class="mb-3">
+            <img src="/Grafico?categoria=@Uri.EscapeDataString(Model.Libros)"
+                 alt="Diagrama de libros de @Model.Libros" class="img-fluid border" />
+            <p class="text-muted">
+                Generado con Graphviz. Si no se ve la imagen,
+                <a href="/Grafico?categoria=@Uri.EscapeDataString(Model.Libros)" target="_blank">ábrela directamente</a>
+                para ver el mensaje de error (por ejemplo, si Graphviz no está instalado o no está en el PATH).
+            </p>
+        </div>
+
         <table class="table table-sm">
             <thead>
                 <tr><th>ISBN</th><th>Título</th><th>Autor</th></tr>
@@ -113,8 +123,7 @@ else
             </tbody>
         </table>
         <p class="text-muted">
-            Se muestran en orden ascendente de ISBN. En el siguiente paso (Graphviz) esto también
-            se mostrará como un diagrama.
+            La tabla muestra los mismos datos en texto, por si necesitas revisarlos rápido.
         </p>
     }
 }
