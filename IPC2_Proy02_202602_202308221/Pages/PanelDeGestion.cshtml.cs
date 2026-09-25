@@ -29,7 +29,7 @@ public class PanelDeGestionModel : PageModel
     [BindProperty]
     public int? IsbnEliminar { get; set; }
  
-    // --- Buscar (GET, no modifica nada) ---
+    // --- Buscar (GET) ---
     [BindProperty(SupportsGet = true)]
     public int? Buscar { get; set; }
  

@@ -118,7 +118,7 @@ namespace IPC2_Proy02_202602_202308221.Structures
             return nodo.LibrosPropios!;
         }
  
-        // RECORRIDO / ESTRUCTURA
+        // RECORRIDO
  
         public void RecorrerEstructura(ListaEnlazadaCategorias resultado)
         {

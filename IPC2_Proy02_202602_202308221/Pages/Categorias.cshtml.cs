@@ -20,9 +20,7 @@ public class CategoriasModel : PageModel
     [BindProperty]
     public string? NuevaCategoriaPadre { get; set; }
 
-    // "desde" y "libros" viajan por query string (GET) y tambien como
-    // campos ocultos del formulario (POST), para conservar el contexto
-    // que se estaba viendo despues de agregar una categoria.
+    // "desde" y "libros" viajan por query string (GET) y tambien campos ocultos del formulario (POST), para conservar el contexto que se estaba viendo despues de agregar una categoria.
     [BindProperty(SupportsGet = true)]
     public string? Desde { get; set; }
 
@@ -60,8 +58,7 @@ public class CategoriasModel : PageModel
             TempData["MensajeEsError"] = true;
         }
 
-        // Patron Post-Redirect-Get: se redirige a la misma pagina
-        // conservando el filtro "desde" que estuviera activo.
+        // Patron Post-Redirect-Get,  redirige a la misma pagina conservando el filtro "desde" que estuviera activo.
         return RedirectToPage(new { desde = Desde });
     }
 

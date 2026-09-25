@@ -5,12 +5,10 @@ using IPC2_Proy02_202602_202308221.Structures;
 
 namespace IPC2_Proy02_202602_202308221.Logica
 {
-    // Construye el archivo .dot con los libros de una categoria (en el
-    // mismo orden ascendente que entrega ListaEnlazadaLibros) e invoca el
-    // ejecutable "dot" de Graphviz para convertirlo en una imagen PNG.
+
     public class GeneradorGraphviz
     {
-        // ---------------- construccion del .dot ----------------
+        // ---------------- construccion del .dot 
 
         public string GenerarDot(ListaEnlazadaLibros libros, string tituloCategoria)
         {
@@ -71,9 +69,9 @@ namespace IPC2_Proy02_202602_202308221.Logica
                 .Replace("\r", " ");
         }
 
-        // ---------------- INVOCAR GRAPHVIZ ----------------
+        // ---------------- INVOCAR GRAPHVIZ 
 
-        public byte[] GenerarImagenPng(string contenidoDot)
+        public ListaEnlazadaByte GenerarImagenPng(string contenidoDot)
         {
             string rutaDot = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".dot");
             string rutaPng = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".png");
@@ -112,7 +110,18 @@ namespace IPC2_Proy02_202602_202308221.Logica
                     throw new InvalidOperationException("Graphviz no genero la imagen esperada.");
                 }
 
-                return File.ReadAllBytes(rutaPng);
+                ListaEnlazadaByte imagenPng = new ListaEnlazadaByte();
+
+                using (FileStream flujo = new FileStream(rutaPng, FileMode.Open, FileAccess.Read))
+                {
+                    int byteLeido;
+                    while ((byteLeido = flujo.ReadByte()) != -1)
+                    {
+                        imagenPng.Agregar((byte)byteLeido);
+                    }
+                }
+
+                return imagenPng;
             }
             finally
             {

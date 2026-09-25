@@ -54,14 +54,11 @@ namespace IPC2_Proy02_202602_202308221.Logica
             return resultado;
         }
  
-        // ---------------- CATEGORIAS ----------------
+        // ---------------- CATEGORIAS 
  
         private void CargarCategorias(XElement listaCategorias, ResultadoCarga resultado)
         {
-            // El XML no garantiza que una categoria "padre" aparezca antes
-            // que su hijo, asi que las que no se puedan insertar en la
-            // primera pasada se dejan pendientes (en listas enlazadas
-            // propias) y se reintentan despues.
+
             ListaEnlazadaTexto pendientesNombre = new ListaEnlazadaTexto();
             ListaEnlazadaTexto pendientesPadre = new ListaEnlazadaTexto();
  
@@ -87,8 +84,7 @@ namespace IPC2_Proy02_202602_202308221.Logica
                 return;
             }
  
-            // Si tiene padre pero ese padre todavia no existe, se deja
-            // pendiente para reintentarlo en la siguiente pasada.
+            // Si tiene padre pero ese padre todavia no existe, se deja pendiente para reintentarlo en la siguiente pasada.
             if (padre != null && !catalogo.ExisteCategoria(padre))
             {
                 pendientesNombre.Agregar(nombre);
@@ -154,8 +150,7 @@ namespace IPC2_Proy02_202602_202308221.Logica
                 pendientesPadre = siguientesPadre;
             }
  
-            // Lo que quede pendiente aqui es porque su categoria padre
-            // nunca aparecio, ni en este archivo ni en lo ya cargado antes.
+            // Lo que quede pendiente aqui es porque su categoria padre nunca aparecio, ni en este archivo ni en lo ya cargado antes.
             NodoTexto? nombreRestante = pendientesNombre.Cabeza;
             NodoTexto? padreRestante = pendientesPadre.Cabeza;
             while (nombreRestante != null && padreRestante != null)
@@ -167,7 +162,7 @@ namespace IPC2_Proy02_202602_202308221.Logica
             }
         }
  
-        // ---------------- LIBROS ----------------
+        // ---------------- LIBROS 
  
         private void CargarLibros(XElement listaLibros, ResultadoCarga resultado)
         {

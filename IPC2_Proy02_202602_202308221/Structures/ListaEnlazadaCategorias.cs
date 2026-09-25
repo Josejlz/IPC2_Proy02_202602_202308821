@@ -3,7 +3,7 @@ using IPC2_Proy02_202602_202308221.Modelos;
 
 namespace IPC2_Proy02_202602_202308221.Structures
 {
-    // Lista enlazada simple de (Categoria, nivel)
+    // Lista enlazada de (Categoria, nivel)
     public class ListaEnlazadaCategorias
     {
         private NodoCategoriaNivel? cabeza;

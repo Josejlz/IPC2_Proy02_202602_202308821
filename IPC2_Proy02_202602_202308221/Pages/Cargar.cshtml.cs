@@ -37,9 +37,7 @@ public class CargarModel : PageModel
             return;
         }
  
-        // CargadorXml.CargarArchivo recibe una RUTA de archivo (asi tambien
-        // se podria usar desde pruebas/consola sin depender de la web), asi
-        // que primero se guarda el archivo subido en una ruta temporal.
+        // recibe el archivo de ruta
         string rutaTemporal = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".xml");
  
         try
